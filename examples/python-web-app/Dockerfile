@@ -5,10 +5,12 @@ WORKDIR /app
 COPY requirements.txt /app/
 COPY devops /app
 
-RUN apt-get update && \
-    apt-get install -y python3 python3-pip && \
-    pip install -r requirements.txt && \
-    cd devops
+RUN apt-get update && apt-get install -y python3 python3-pip python3-venv
+
+RUN python3 -m venv venv1 && \
+source venv1/bin/activate && \
+pip install --no-cache-dir -r requirements.txt
+   
 
 ENTRYPOINT ["python3"]
 
